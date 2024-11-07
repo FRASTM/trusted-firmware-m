@@ -525,6 +525,12 @@
 
 #ifdef HAL_DMA_MODULE_ENABLED
 
+#if (__GNUC__ == 11) || (__GNUC__ == 12)
+#define ATTRIB  __attribute__ ((noinline))
+#else
+#define ATTRIB
+#endif
+
 /* Private types -----------------------------------------------------------------------------------------------------*/
 /* Private variables -------------------------------------------------------------------------------------------------*/
 /* Private Constants -------------------------------------------------------------------------------------------------*/
@@ -4074,7 +4080,7 @@ static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
   * @param  pNode4 : Pointer to a DMA_NodeTypeDef structure that contains linked-list node 4 registers configurations.
   * @retval Return 0 when nodes addresses are compatible, 1 otherwise.
   */
-static uint32_t DMA_List_CheckNodesBaseAddresses(DMA_NodeTypeDef const *const pNode1,
+static  ATTRIB uint32_t DMA_List_CheckNodesBaseAddresses(DMA_NodeTypeDef const *const pNode1,
                                                  DMA_NodeTypeDef const *const pNode2,
                                                  DMA_NodeTypeDef const *const pNode3,
                                                  DMA_NodeTypeDef const *const pNode4)
